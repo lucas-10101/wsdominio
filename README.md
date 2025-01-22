@@ -15,12 +15,22 @@ A aplicação conta com os seguintes objetos de domínio:
 
 As permissões de grupos ou usuários são atribuidas ao funcionário e empresa, portanto existe o isolamento de acesso entre filiais para um controle mais granular dos acessos
 
+Esta aplicação é um modelo inicial e simplificado dos controles distribuidos entre outros serviços (aplicação baseada em arquitetura de serviços "SOA")
+
 ### Recursos de OIDC e geração de tokens de acesso
 
 Esta aplicão possui as informações principais relacionadas ao usuário e suas dependências, porém a geração de tokens e implementação do padrão OIDC é delegado a ferramentas mais robustas e especificas para esta funcionalidade, dentre as implementações possíveis estão:
 
 + Keycloak
 + AWS Cognito
+
+### Recursos Spring Framework
+
++ Spring Data JDBC: Uso das classes JDBCTemplate para acesso a dados
++ Spring Security: Configurações de acesso, segurança e identidade na aplicação
++ Spring Web: Para controladores e métodos de ponto para comunicação com outros serviços em XML/JSON
+
+Outros recursos também podem ter sido utilizados durante o desenvolvimento como suporte a aplicação em outros aspectos e podem ser adicionados a depender de sua relevancia.
 
 ### UML
 
@@ -31,3 +41,7 @@ Uma versão do diagrama de UML já esta preparada e estar disponível em versõe
 ### Licenciamento
 
 Este projeto não inclui licença, pois por definição, não é feito para licenciamento e é de propriedade exclusiva.
+
+# Como executar
+
+Junto a esta aplicação é adicionado um arquivo docker para execução de um container ou também poderá ser executado a partir dos arquivos locais em formato JAR

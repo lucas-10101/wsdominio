@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://json.schemastore.org/liquibase-3.2.json
+
+databaseChangeLog:
+  - changeSet:
+      id: CRIAR-TABELA-DOMINIO
+      author: lucas-10101
+      changes:
+        - createTable:
+            tableName: DOMINIO
+            columns:
+              - column:
+                  name: ID
+                  computed: false
+                  descending: false
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: NOME
+                  computed: false
+                  descending: false
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: CRIAR-TABELA-EMPRESA
+      author: lucas-10101
+      changes:
+        - createTable:
+            tableName: EMPRESA
+            columns:
+              - column:
+                  name: ID
+                  computed: false
+                  descending: false
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: NOME
+                  computed: false
+                  descending: false
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ID_ENDERECO
+                  computed: false
+                  descending: false
+                  type: VARCHAR(36)
+              - column:
+                  name: ID_DOMINIO
+                  computed: false
+                  descending: false
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+                    referencedTableName: DOMINIO
+                    referencedColumnNames: ID
+                    foreignKeyName: FK_EMPRESA_DOMINIO
+                    

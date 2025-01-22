@@ -14,5 +14,5 @@ public class FuncaoAcesso {
 
     private String funcao;
 
-    private UUID descricao;
+    private String descricao;
 }

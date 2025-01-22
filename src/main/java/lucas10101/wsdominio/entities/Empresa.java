@@ -12,8 +12,10 @@ public class Empresa {
     @EqualsAndHashCode.Include
     private UUID id;
 
-    private String name;
+    private String nome;
 
     private UUID idEndereco;
+
+    private UUID idDominio;
 
 }
