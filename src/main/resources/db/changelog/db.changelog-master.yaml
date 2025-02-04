@@ -50,6 +50,8 @@ databaseChangeLog:
                   computed: false
                   descending: false
                   type: VARCHAR(36)
+                  constraints:
+                    nullable: false
               - column:
                   name: ID_DOMINIO
                   computed: false
