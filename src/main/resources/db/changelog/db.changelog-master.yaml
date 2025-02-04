@@ -62,4 +62,48 @@ databaseChangeLog:
                     referencedTableName: DOMINIO
                     referencedColumnNames: ID
                     foreignKeyName: FK_EMPRESA_DOMINIO
-                    
+  - changeSet:
+      id: CRIAR-TABELA-FUNCAO_ACESSO
+      author: lucas-10101
+      changes:
+        - createTable:
+            tableName: FUNCAO_ACESSO
+            columns:
+              - column:
+                  name: ID
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: FUNCAO
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: DESCRICAO
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: CRIAR-TABELA-GRUPO_ACESSO
+      author: lucas-10101
+      changes:
+        - createTable:
+            tableName: GRUPO_ACESSO
+            columns:
+              - column:
+                  name: ID
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: NOME
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ID_EMPRESA
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false

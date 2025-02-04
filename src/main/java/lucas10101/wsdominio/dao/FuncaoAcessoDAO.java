@@ -33,29 +33,27 @@ public class FuncaoAcessoDAO {
         return funcaoAcesso;
     }
 
-    public FuncaoAcesso atualizar(FuncaoAcesso funcaoAcesso) {
-        jdbcTemplate.update("UPDATE FUNCAO_ACESSO SET FUNCAO = ?, DESCRICAO = ? WHERE ID = ?",
+    public int atualizar(FuncaoAcesso funcaoAcesso) {
+        return jdbcTemplate.update("UPDATE FUNCAO_ACESSO SET FUNCAO = ?, DESCRICAO = ? WHERE ID = ?",
                 funcaoAcesso.getFuncao(),
                 funcaoAcesso.getDescricao(),
                 funcaoAcesso.getId());
-
-        return funcaoAcesso;
     }
 
     public Optional<FuncaoAcesso> buscarPorId(UUID uuid) {
         return Optional.ofNullable(
                 jdbcTemplate.queryForObject(
-                        "SELECT FUNCAO, DESCRICAO FROM FUNCAO_ACESSO WHERE ID = ?",
+                        "SELECT ID, FUNCAO, DESCRICAO FROM FUNCAO_ACESSO WHERE ID = ?",
                         rowMapper,
                         uuid));
     }
 
-    public Collection<FuncaoAcesso> listar(Pageable paginacao) {
+    public Collection<FuncaoAcesso> buscarTodos(Pageable paginacao) {
         return jdbcTemplate.query(
-                "SELECT ID, FUNCAO, DESCRICAO FROM FUNCAO_ACESSO ORDER BY ID OFFSET ? ROWS FETCH ? ROWS ONLY",
+                "SELECT ID, FUNCAO, DESCRICAO FROM FUNCAO_ACESSO ORDER BY ID LIMIT ? OFFSET ?",
                 rowMapper,
-                paginacao.getOffset(),
-                paginacao.getPageSize());
+                paginacao.getPageSize(),
+                paginacao.getOffset());
 
     }
 }
