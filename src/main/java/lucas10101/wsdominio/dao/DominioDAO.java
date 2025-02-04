@@ -19,9 +19,11 @@ public class DominioDAO {
     public Dominio novo(Dominio dominio) {
 
         final UUID novoId = UUID.randomUUID();
-        final String SQL = "INSERT INTO DOMINIO (ID, NOMES) VALUES (?, ?)";
+        final String SQL = "INSERT INTO DOMINIO (ID, NOME) VALUES (?, ?)";
 
         jdbcTemplate.update(SQL, novoId, dominio.getNome());
+
+        dominio.setId(novoId);
 
         return dominio;
     }
