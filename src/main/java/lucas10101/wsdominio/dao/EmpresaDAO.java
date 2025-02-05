@@ -17,22 +17,22 @@ public class EmpresaDAO {
     private JdbcTemplate jdbcTemplate;
 
     // Método para criar um novo registro
-    public Empresa novo(Empresa Empresa) {
-        Empresa.setId(UUID.randomUUID());
-        final String SQL = "INSERT INTO EMPRESA (ID, NOME) VALUES (?, ?)";
-        jdbcTemplate.update(SQL, Empresa.getId(), Empresa.getNome());
-        return Empresa;
+    public Empresa novo(Empresa empresa) {
+        empresa.setId(UUID.randomUUID());
+        final String SQL = "INSERT INTO EMPRESA (ID, NOME, ID_ENDERECO, ID_DOMINIO) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(SQL, empresa.getId(), empresa.getNome(), empresa.getIdEndereco(), empresa.getIdDominio());
+        return empresa;
     }
 
     // Método para atualizar um registro existente
-    public int atualizar(Empresa Empresa) {
+    public int atualizar(Empresa empresa) {
         final String SQL = "UPDATE EMPRESA SET NOME = ? WHERE ID = ?";
-        return jdbcTemplate.update(SQL, Empresa.getNome(), Empresa.getId());
+        return jdbcTemplate.update(SQL, empresa.getNome(), empresa.getId());
     }
 
     // Método para buscar um registro por ID
     public Optional<Empresa> buscarPorId(UUID id) {
-        final String SQL = "SELECT ID, NOME FROM EMPRESA WHERE ID = ?";
+        final String SQL = "SELECT ID, NOME, ID_ENDERECO, ID_DOMINIO FROM EMPRESA WHERE ID = ?";
 
         Empresa resultado = jdbcTemplate.queryForObject(SQL, (rs, rowNum) -> {
 
@@ -48,13 +48,14 @@ public class EmpresaDAO {
 
     // Método para buscar todos os registros
     public List<Empresa> buscarTodos() {
-        final String SQL = "SELECT ID, NOME FROM EMPRESA";
+        final String SQL = "SELECT ID, NOME, ID_ENDERECO, ID_DOMINIO FROM EMPRESA";
         return jdbcTemplate.query(SQL, (rs, rowNum) -> {
 
             var empresa = new Empresa();
             empresa.setId(UUID.fromString(rs.getString("ID")));
             empresa.setNome(rs.getString("NOME"));
             empresa.setIdEndereco(UUID.fromString(rs.getString("ID_ENDERECO")));
+            empresa.setIdDominio(UUID.fromString(rs.getString("ID_DOMINIO")));
 
             return empresa;
         });

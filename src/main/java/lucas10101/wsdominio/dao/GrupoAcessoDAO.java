@@ -34,21 +34,19 @@ public class GrupoAcessoDAO {
         return grupoAcesso;
     }
 
-    public GrupoAcesso atualizar(GrupoAcesso grupoAcesso) {
+    public int atualizar(GrupoAcesso grupoAcesso) {
 
-        jdbcTemplate.update("UPDATE GRUPO_ACESSO SET NOME = ? WHERE ID = ?",
+        return jdbcTemplate.update("UPDATE GRUPO_ACESSO SET NOME = ? WHERE ID = ?",
                 grupoAcesso.getNome(),
                 grupoAcesso.getId());
-
-        return grupoAcesso;
     }
 
-    public Collection<GrupoAcesso> listar(Pageable paginacao) {
+    public Collection<GrupoAcesso> buscarTodos(Pageable paginacao) {
         return jdbcTemplate.query(
-                "SELECT ID, NOME, ID_EMPRESA FROM GRUPO_ACESSO ORDER BY ID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY",
+                "SELECT ID, NOME, ID_EMPRESA FROM GRUPO_ACESSO ORDER BY ID LIMIT ? OFFSET ?",
                 grupoAcessoRowMapper,
-                paginacao.getOffset(),
-                paginacao.getPageSize());
+                paginacao.getPageSize(),
+                paginacao.getOffset());
     }
 
     public Optional<GrupoAcesso> buscarPorId(UUID uuid) {
